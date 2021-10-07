@@ -1,6 +1,9 @@
-#CONSTRUCCION DEL PROYECTO
+#Primera Etapa
+FROM node:14-alpine as build-step
+RUN mkdir -p /app
+WORKDIR /app
+COPY . /app
+#Segunda Etapa
 FROM nginx:alpine
-RUN rm -rf /usr/share/nginx/html/
-CMD [ "NG" ]
 
-FROM node:14-alpine
+COPY --from=build-step /app /usr/share/nginx/html
